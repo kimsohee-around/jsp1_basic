@@ -11,9 +11,9 @@
   <script>
  
  function showPostCode() {
-    //    daum.postcode.load(function() {
           new daum.Postcode({
             oncomplete : function(data) {
+            	console.log(data)
               $('input[name=postalCode]').val(data.zonecode);
               $('input[name=address1]').val(data.sido);
               $('input[name=address2]').val(data.sigungu);
@@ -22,7 +22,6 @@
               $('input[name=address4]').focus();
             }
           }).open();
-      //  });
       }
   </script>
 </head>
@@ -77,12 +76,18 @@
                 <input id="address3" name="address3" type="text" placeholder="주소" readonly />
               </li>
               <li><input id="address4" name="address4" type="text" placeholder="주소 검색 후 상세주소를 입력해 주세요."  /></li>
+              
             </ul>
-            <button type="button" class="join-btn">회원가입</button>
+            <div class="hidden">
+              <input id="adultYn" name="adultYn" type="hidden" />
+              <input id="channel" name="channel" type="hidden" />
+            </div>
+            <button type="button" class="join-btn" onclick="join()">회원가입</button>
           </form>
         </div>
       </div>
-    </div>
+     </div> 
   </div>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>

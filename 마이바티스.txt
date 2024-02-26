@@ -1,0 +1,61 @@
+
+마이바티스 프레임웍
+ * 라이브러리 사용해서 보다 SQL실행하는 `구조적으로  jdbc dao 구현`
+ 반복되는 코드를  없애보자. ( sql 파라미터와 자바 객체의 매핑)
+ * 특징1)마이바티스는 JDBC로 처리하는 상당부분의 코드와 파라미터 설정및 결과 매핑을 대신해준다. (참고:마이바티스 공식 사이트)
+ * 마이바티스 구현 방법 중에는 XML 파일을 사용하는 것이 제일 많이 사용됩니다.
+   특징2)XML 파일에 sql 을 모두 저장합니다.
+   XML : HTML 과 같이 태그를 사용하면서 데이터를 저장합니다. Markup Language (태그사용)
+	단, html과 같이 지정된 태그를 사용하지 않고 여러가지 형식을 만들어내는
+        방법이 있습니다. xml 파일은 설정, 데이터 저장 목적으로 사용됩니다.
+        예시 : 톰캣의 서버 port 설정은 결국은 sever.xml 파일 내용입니다. 
+  
+  
+* dao(data access object)는 sql을 실행하는 메소드로 구성됩니다. 
+  따라서 dao 의 메소드 각각이 sql을 실행합니다. 
+  마이바티스 `SqlSession 메소드`는 이름 자체가 sql명령문과 같아요.  
+  예를 들면, insert sql을 실행할때는 insert 메소드를 실행합니다. 
+  - 메소드 종류
+  insert
+  update
+  delete
+  selectList  : 리턴타입이 List 컬렉션 
+  selectOne   : 리턴타입이 컬렉션이 아닙니다.(1개행 조회 - PK컬럼)
+  
+  - 메소드의 인자 
+  그러면 마이바티스 메소드에게 무엇을 알려줘야 할까요?  실행할 sql 의 id(필수) 와 실행에 필요한 값(선택)입니다.
+  insert,update,delete,seletOne 은 100% 값(파라미터)가 필요하다.매퍼 xml에서 parameterType 설정합니다.
+  
+  - 메소드의 리턴타입
+  selectOne, selectList 는 매퍼 xml 에서 반드시 resultType 으로 데이터 형식 설정해야 합니다.
+  insert,update,delete 는 매퍼 xml 에서는 resultType 타입 설정 안하고 메소드에서는 반영된 행의 개수 리턴합니다.
+   
+*  마이바티스에서는 실행할 sql이 매퍼 xml에 모여 있으므로 그 파일에 있는 id 값을 써야합니다.
+	예시 : sqlSession.update("tblbuy.update",map) 메소드에서
+		  tblbuy 는 매퍼 xml 의 namespace 값, update 는 매퍼 xml 의 id 값 , map 은 sql 의 파라미터
+
+*  sql 실행에 필요한 값은 sql 명령 중 매개변수 기호 #{} 에 전달됩니다. 이 값의 형식을 파라미터 타입으로 설정합니다.
+	참고 :	#{category}는 값 양쪽에 따옴표를  'B1' , ${} 는 따옴표가 안 붙습니다. 예시, items="${list}" 
+	
+
+<<마이바티스 주요 특징 : 특징3)동적 쿼리>>
+
+- 상품 검색 구현하기	
+		ㄴ 메뉴 추가 index.html (url은 search.cc)
+		ㄴ sql 과 dao의 search() 메소드 구현 완료 
+		ㄴ 화면 jsp 만들기
+	
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

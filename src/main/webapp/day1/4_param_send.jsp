@@ -12,7 +12,7 @@
 	<hr>
 	<ul>
 		<li>
-			<a href="5_param_receive.jsp?name=sana&age=24">name,age 2개의 파라미터 보내기</a>
+			<a href="5_param_receive.jsp?name=김사나&age=24">name,age 2개의 파라미터 보내기</a>
 			<!-- 2개 값이 모두 출력됩니다. -->
 		</li>
 		<li>

@@ -1,0 +1,35 @@
+tbl_custom
+tbl_product
+tbl_buy - BuyDao 에 selectCustomerBuyList 메소드만 추가
+
+위의 테이블에 대한 MybatisDao를
+구현하세요. - 기존 dao 메소드 모두 마이바티스로 바꿉니다.
+
+=> dao 모두 만들고 테스트하겠습니다.
+          SQL 매퍼와 dao 메소드 작성에 참고하세요.
+
+    1) dml insert,update,delete,select 과 동일한 태그에 작성하기
+    2) dao 메소드에서 지정했던 메소드의 인자는 parameterType, 
+			 리턴은 resultType 정하기
+      주의 : 자바 객체의 변수(속성)명과 파라미터 기호 #{} 이름을 동일하게 합니다.
+            파라미터가 Map 일 때에는 key 이름과 파라미터 이름 동일하게 합니다.
+           기본 형식, String 은 변수 선언 키워드와 동일하게 합니다. 
+   3) dto(또는 vo) 클래스는 커스텀 생성자를 사용하고, 컬럼명과 변수명 순서를 같게합니다.
+   4) namespace ,id 속성값은 개발자가 정합니다.     
+   5)  리턴타입이 List 일 때에는 제너릭타입만 설정하면 됩니다.    
+   6) 매퍼에서 select  가 리턴이 여러 행 또는 1개 행인지를 판단하여
+	     sqlSession 메소드는 selectList 또는 selectOne을 선택해서 사용합니다.
+   7) dao 메소드 인자가 Map 일 때, value 의 타입이 다르면 Object 로 합니다.
+ 
+   8) SqlSession 객체 insert,update,delete,selectXXX 메소드는 해당 SQL 명령문을 실행합니다.
+			ㄴ 첫번째 인자는 sql매퍼 파일의 namespace속성.id속성
+			ㄴ 두번째 인자는 sql 실행에 파라미터가 있으면 작성합니다.
+
+
+
+
+
+
+
+
+

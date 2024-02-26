@@ -16,12 +16,20 @@ import project.vo.CustomerBuyVo;
 
 public class TblBuyDao {
     
-    public static final String URL ="jdbc:oracle:thin:@//localhost:1521/xe";
+	public static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
+    public static final String URL ="jdbc:oracle:thin:@localhost:1521/xe";
     public static final String USERNAME = "c##idev";
     private static final String PASSWORD = "1234";
 
     private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    	Connection conn=null;
+    	try {
+			Class.forName(DRIVER);
+			conn= DriverManager.getConnection(URL, USERNAME, PASSWORD);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+        return conn;
     }
     //executeUpdate 메소드는 insert,update,delete 가 정상 실행(반영되 행 있으면)되면 1을 리턴, 
     //                       특히 update, delete 는 조건에 맞는 행이 없어서 반영된 행이 없으면 0을 리턴. 
@@ -84,6 +92,29 @@ public class TblBuyDao {
         return result;
     }
 
+    public List<BuyVo> selectAll(){
+    	String sql = "SELECT * FROM TBL_BUY ORDER BY BUY_DATE DESC";
+    	List<BuyVo> list = new ArrayList<>();
+    	 try(
+    	            Connection conn = getConnection();
+    	            PreparedStatement ps = conn.prepareStatement(sql))
+    			{
+    			    ResultSet rs = ps.executeQuery();
+    			
+    			    while(rs.next()) {
+    				    list.add(new BuyVo(rs.getInt(1), 
+    						rs.getString(2), 
+    						rs.getString(3), 
+    						rs.getInt(4),
+    	                    rs.getDate(5)));
+    			    }
+    	        }catch(SQLException e){
+    	            System.out.println("전체 구매내역 실행 예외 발생 : " + e.getMessage());
+    	        }
+    			return list;
+    }
+    
+    
     //mypage 기능의 메소드. 
     public List<CustomerBuyVo> selectCustomerBuyList(String customerid) {
         List<CustomerBuyVo> list = new ArrayList<>();

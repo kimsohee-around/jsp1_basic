@@ -1,0 +1,61 @@
+<<지금까지(2/22) 수업한 내용>>
+1. 요청 파라미터 전달하기
+2. jsp 파일의 형식
+3. jstl 태그(반복,조건,서식,함수)
+4. 애트리뷰트와 el
+5. request 객체의 속성값 : 요청 URL, context path,서버와클라이언트 ip....
+6. 서블릿 클래스의 형식
+7. 서버측에서 웹페이지 전환하기 foward
+    ㄴ 사용자 요청을 전달하므로 애트리뷰트 값을 jsp로 보낼 수 있음. 
+    ㄴ forward 에서 사용한 객체는 RequestDispatcher (jsp의 pageContext 역할)
+8. 서버측에서 클라이언트가 다른 url 재요청하도록 redirect
+9. 요청 방식(메소드) GET 과 POST
+10. 애트리뷰트 : 서버에서 저장하는 Object 타입의 데이터
+	    ㄴ 스콥(scope) , 사용 범위가 있습니다.
+	    ㄴ 우리가 사용해 본 2개 스콥 : 현재 웹페이지(pageContext) , 요청(request)
+	    ㄴ 저장은 스콥객체.setAttribute() , 읽기는 스콥객체.getAttribute()	
+==============================================================================
+
+     서블릿	   기능		   요청메소드	  주요코드					view(화면)
+
+        A	   고객전체조회	   GET	        dispather.forward(req,resp)		customers.jsp
+	B	   상품전체조회	   GET		dispather.forward(req,resp)		products.jsp
+	C	   주문전체조회	   GET		dispather.forward(req,resp)		buys.jsp
+	D	   고객등록-화면      GET		dispather.forward(req,resp)		register.jsp
+                         -저장      POST		response.sendRedirect(url)		없음-url필요
+						또는 자바스크립트 출력
+	E	   상품등록-화면      GET		dispather.forward(req,resp)		productReg.jsp
+                         -저장      POST		response.sendRedirect(url)		없음-url필요
+						또는 자바스크립트 출력
+
+  (퀴즈) A B C 의 GET 과 D E 의 GET 다른 코드 하나를 찾아보세요.   request.setAttribute("list",list)
+			ㄴ 이유 :  화면에서 보여줄 데이터를 저장. -> 반드시 forward 로 해야 합니다.
+
+  (퀴즈) 사용자 요청 파라미터는 POST 방식에서만 전달된다 ( O or X )     정답 : X 
+				 ㄴ form 태그로 전달
+			 GET 방식에서는 url 쿼리스트링으로 전달.
+
+  (퀴즈) <c:forEach items="${list}" var="vo">  에서 ${list} 실행 동작 메소드는 ?
+			 
+			정답 : 1) request.getAttribute("list")   *리턴타입이 Object  
+			      2) Object 타입을 알아서 저장된 형식(List<~Vo>)으로 강제 캐스팅	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+

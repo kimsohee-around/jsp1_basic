@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import project.vo.CustomerVo;
 
 public class TblCustomerDao {
@@ -27,10 +28,11 @@ public class TblCustomerDao {
         return conn;
     }
     //회원 가입
-    public void join(CustomerVo vo){
+    public int join(CustomerVo vo){
         // 할일1 : SQL 작성하기 (매개변수 표시 정확히 합시다.)
         String sql="insert into tbl_custom(custom_id,name,email,age,reg_date) " + 
                     "values (?, ?, ?, ?, sysdate)";
+        int result=0;
         try (Connection connection = getConnection();       //auto close
             PreparedStatement pstmt = connection.prepareStatement(sql);)
             {   
@@ -40,10 +42,12 @@ public class TblCustomerDao {
                 pstmt.setString(3, vo.getEmail());
                 pstmt.setInt(4, vo.getAge());
 
-                pstmt.executeUpdate();
+                result = pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("join 실행 예외 발생 : " + e.getMessage());
         }//close는 자동으로 합니다. finally 없음
+        
+        return result;
     }
 
     //회원정보수정
