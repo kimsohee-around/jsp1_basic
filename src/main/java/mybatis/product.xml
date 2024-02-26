@@ -44,6 +44,11 @@
     	ORDER BY ${column}
     	</if>
     </select>
+    <!-- 카테고리 가져오기 -->
+    <select id="getCategories" resultType="day4.mybatis.dto.CateDto">
+    	<!-- select distinct category from tbl_product order by category -->
+    	select * from  tbl_category order by code
+    </select>
 	<select id="selectAll" resultType="ProductDto">
 		SELECT * FROM TBL_PRODUCT 
 			ORDER BY pcode 

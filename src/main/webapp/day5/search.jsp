@@ -18,10 +18,13 @@
 		<select name="category">
 			<option value="">카테고리 선택</option>
 			<c:forEach items="${cateList }" var="cate">
-				<option value="${cate}"><c:out value="${cate }" /></option>
+				<option value="${cate.code}" data-num="${cate.code}">
+					<c:out value="${cate.name }" />
+				</option>
 			</c:forEach>
 		</select>
-		<input type="text" name="keyword" placeholder="상품명 검색어 입력하세요.">
+		<input type="text" name="keyword" placeholder="상품명 검색어 입력하세요." 
+						value="${keyword }">
 		<span style="padding-left: 10px;">가격대별</span>
 		<input type="text" name="from" placeholder="10000"><b>~</b>
 		<input type="text" name="to" placeholder="50000">
@@ -44,6 +47,11 @@
 			</li>	
 		</c:forEach>
 	</ul>	
+	<script type="text/javascript">
+	//js 파일에서는 서버 애트리뷰트를 가져올 수 없습니다.
+	//		 jsp파일안에 있는 script 태그에서만 가능합니다.
+		const temp = '${cate}'
+	</script>
 	<script type="text/javascript" src="assets/js/search.js"></script>
 </body>
 </html>
